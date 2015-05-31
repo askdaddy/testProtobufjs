@@ -1,0 +1,13 @@
+{
+  "name": "test-protobufjs",
+  "version": "0.0.1",
+  "main": "main.js",
+  "dependencies": {
+    "protobufjs": "~3.7",
+    "json3": ">=3.3"
+  },
+  "engines": {
+    "node": ">=0.12"
+  },
+  "private": true
+}

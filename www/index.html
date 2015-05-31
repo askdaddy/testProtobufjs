@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="./Long.min.js"></script>
+    <script src="./ByteBufferAB.min.js"></script>
+    <script src="./ProtoBuf.min.js"></script>
+
+    <script>
+        if (typeof dcodeIO === 'undefined' || !dcodeIO.ProtoBuf) {
+            throw(new Error("ProtoBuf.js is not present. Please see www/index.html for manual setup instructions."));
+        }
+        // Initialize ProtoBuf.js
+        var ProtoBuf = dcodeIO.ProtoBuf;
+        var AN = ProtoBuf.loadProtoFile("./hour.proto").build("analysis");
+
+
+
+        var xhr = new XMLHttpRequest();
+        xhr.responseType="arraybuffer";
+        xhr.onreadystatechange=function()
+        {
+            if (xhr.readyState==4 && xhr.status==200)
+            {
+                var jjj = AN.Hour.decode(xhr.response);
+
+                var timeArr = jjj.timestamps["timestamp"],
+                        dataArr = jjj.datas["datapg"];
+                for (var i=0; i<timeArr.length; ++i){
+                    console.log("time:"+timeArr[i]);
+
+                    var dataobj = dataArr[i];
+                    console.log(dataobj);
+                    for (var j=0; j<dataobj["region"].length;++j){
+                        console.log("region:"+dataobj["region"][j]);
+                        console.log(dataobj["regionobj"][j]);
+                    }
+                }
+            }
+        }
+        xhr.open("GET","./hour.bin",true);
+        xhr.send();
+    </script>
+</head>
+<body>
+
+</body>
+</html>

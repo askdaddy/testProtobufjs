@@ -1,0 +1,58 @@
+package analysis;
+
+message Hour{
+    optional DataArr datas = 1;
+    optional TimeArr timestamps = 2;
+}
+
+message DataArr{
+    repeated DataObj datapg = 1;
+}
+
+message TimeArr{
+    repeated string timestamp = 1;
+}
+
+message DataObj{
+    repeated string region = 1;
+    repeated RegionObj regionobj = 2;
+}
+
+message RegionObj{
+    required BpsObj bps = 1;
+    required BObj b = 2;
+    required ReqObj req = 3;
+    required FObj f = 4;
+}
+
+message BpsObj{
+    required int32 delay = 1 [default = 0];
+    required int32 delay_source = 2 [default = 0];
+    required int32 delay_dynamic = 3 [default = 0];
+}
+
+message BObj{
+    required float total =1 [default = 0.0];
+    required float ms = 2 [default = 0.0];
+    required float ht = 3 [default = 0.0];
+}
+
+message ReqObj{
+    required int64 dyn503 = 1 [default = 0];
+    required int64 ps = 2 [default = 0];
+    required int64 bak502 = 3 [default = 0];
+    required int64 ht = 4 [default = 0];
+    required int64 bak5xx = 5 [default = 0];
+    required int64 dyn502 = 6 [default = 0];
+    required int64 bak503 = 7 [default = 0];
+    required int64 ms = 8 [default = 0];
+    required int64 cs = 9 [default = 0];
+    required int64 dyn504 = 10 [default = 0];
+    required int64 total = 11 [default = 0];
+    required int64 bak504 = 12 [default = 0];
+    required int64 dyn5xx = 13 [default = 0];
+}
+
+message FObj {
+    required int64 total = 1 [default = 0];
+}
